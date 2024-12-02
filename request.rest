@@ -1,0 +1,8 @@
+POST http://localhost:3000/posts
+Content-Type: application/json
+
+{
+  "postData": "This is the content of the new post.",
+  "senderId": "1",
+  "postId": "1"
+}
