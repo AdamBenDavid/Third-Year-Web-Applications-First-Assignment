@@ -6,12 +6,12 @@ router.get("/", postsController.getAllPosts);
 
 router.post("/", postsController.addPost);
 
-// router.get("/", postsController.getAllPosts);
+router.get("/:id", postsController.getPostById);
 
-// router.get("/:id", postsController.getPostById);
+router.delete("/", postsController.deletePosts);
 
-// router.post("/", postsController.createPost);
+router.get("/", postsController.getPostBySenderId);
 
-// router.delete("/:id", postsController.deletePost);
+router.put("/:id", postsController.updatePostById);
 
 module.exports = router;
