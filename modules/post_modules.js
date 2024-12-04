@@ -3,7 +3,7 @@ const CommentSchema = require("./comments_modules");
 const { Schema } = mongoose;
 
 const postSchema = new Schema({
-  postId: {
+  postData: {
     type: String,
     required: true,
   },
@@ -11,11 +11,6 @@ const postSchema = new Schema({
     type: String,
     required: true,
   },
-  postData: {
-    type: String,
-    required: true,
-  },
-  comments: [CommentSchema],
 });
 
 module.exports = mongoose.model("PostSchema", postSchema);

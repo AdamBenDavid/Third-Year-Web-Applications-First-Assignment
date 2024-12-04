@@ -3,7 +3,7 @@ const postModel = require("../modules/post_modules");
 
 const addPost = async (req, res) => {
   try {
-    const post = new postModel(req.body);
+    const post= new postModel(req.body);
     await post.save();
     res.send(post);
   } catch (error) {
@@ -40,28 +40,21 @@ const deletePosts = async (req, res) => {
   }
 };
 
-const getPostBySenderId = async (req, res) => {
-  const senderId = req.query.senderId;
 
-  try {
-    // Validate if sender ID is provided
-    if (!senderId) {
-      return res.status(400).send("sender query parameter is required");
-    }
-
-    // Find posts by sender ID
-    const posts = await postModel.find({ senderId: senderId });
-
-    // Check if any posts are found
-    if (posts.length > 0) {
-      res.status(200).send(posts);
-    } else {
-      res.status(404).send("No posts found for the specified sender");
-    }
-  } catch (error) {
-    res.status(500).send(error.message);
-  }
-};
+// פונקציה לקבלת פוסטים לפי senderId
+// const getPostBySenderId = async (req, res) => {
+//   try {
+//     const senderId = req.query.senderId;
+//     if(!senderId){
+//       return res.status(400).send("senderId is required");
+//     } 
+//     const posts = await postModel.find({senderId});
+//     res.send(posts);
+// }
+// catch (error) {
+//   res.status(400).send(error.message);
+// }
+// };
 
 const updatePostById = async (req, res) => {
   const postId = req.params.id;
@@ -77,6 +70,28 @@ const updatePostById = async (req, res) => {
     res.status(200).send(updatedPost);
   } catch (error) {
     res.status(500).send(error.message);
+  }
+};
+
+// Controller to get posts by sender
+const getPostBySenderId = async (req, res) => {
+  const senderId = req.query.senderId; // senderId מגיע מה-Query
+
+  if (!senderId) {
+    return res.status(400).json({ error: "Sender ID is required" });
+  }
+
+  try {
+    const posts = await postModel.find({ senderId }); // חיפוש לפי senderId
+
+    if (posts.length === 0) {
+      return res.status(404).json({ message: "No posts found for the given sender" });
+    }
+
+    res.status(200).json(posts);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
   }
 };
 
