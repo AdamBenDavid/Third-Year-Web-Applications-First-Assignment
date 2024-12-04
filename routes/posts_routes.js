@@ -4,13 +4,13 @@ const postsController = require("../controllers/posts_controller");
 
 router.get("/", postsController.getAllPosts);
 
+router.get("/filter", postsController.getPostBySenderId);
+
 router.post("/", postsController.addPost);
 
 router.get("/:id", postsController.getPostById);
 
 router.delete("/", postsController.deletePosts);
-
-router.get("/", postsController.getPostBySenderId);
 
 router.put("/:id", postsController.updatePostById);
 

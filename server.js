@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
-const postsRoutes = require("./routes/routes"); // חיבור לנתיב הראוטר
+const postsRoutes = require("./routes/posts_routes"); // חיבור לנתיב הראוטר
+const commentsRoutes= require("./routes/comments_routes");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 const bodyParser = require("body-parser");
@@ -13,6 +14,7 @@ const db = mongoose.connection;
 const port = process.env.PORT;
 
 app.use("/posts", postsRoutes);
+app.use("/comments", commentsRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
